@@ -17,14 +17,18 @@ function App() {
   useEffect(() => {
     async function handleCompletedByCepAddress(cepInput) {
       if (cepInput.length >= 8) {
-        const result = await fetch(`https://viacep.com.br/ws/${cepInput}/json/`)
-        const { logradouro, bairro, localidade, uf, } = await result.json();
+        try {
+          const result = await fetch(`https://viacep.com.br/ws/${cepInput}/json/`)
+          const { logradouro, bairro, localidade, uf, } = await result.json();
 
-        setValue('logradouro', logradouro);
-        setValue('bairro', bairro);
-        setValue('cidade', localidade);
-        setValue('estado', uf);
-        setValue('pais', "Brasil");
+          setValue('logradouro', logradouro);
+          setValue('bairro', bairro);
+          setValue('cidade', localidade);
+          setValue('estado', uf);
+          setValue('pais', "Brasil");
+        } catch (error) {
+          console.log("Test");
+        }
       }
     }
 
@@ -35,6 +39,7 @@ function App() {
 
   return (
     <div className="container">
+      <h1>Register</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="container-columns">
           <div className="container-inputs">
